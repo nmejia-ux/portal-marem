@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Portal MAREM</title>
+
+  <!-- Configuración PWA Estándar (Android / Chrome / Edge) -->
+  <meta name="theme-color" content="#051329">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="./manifest.json">
+
+  <!-- Configuración PWA para iOS (iPhone / iPad) -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Portal MAREM">
+  <link rel="apple-touch-icon" href="https://i.ibb.co/rff7smrH/Logo-Inversiones-Marem.png">
+  <link rel="icon" type="image/png" href="https://i.ibb.co/rff7smrH/Logo-Inversiones-Marem.png">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #051329;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+    .iframe-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      border: none;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    /* Botón flotante para instalar la App cuando el navegador lo habilite */
+    #btnInstalarPWA {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      background: linear-gradient(135deg, #0284c7, #051329);
+      color: #ffffff;
+      border: 2px solid #38bdf8;
+      border-radius: 999px;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7), 0 0 15px rgba(56, 189, 248, 0.5);
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Botón de instalación directa (aparece automáticamente en Android si no está instalada) -->
+  <button id="btnInstalarPWA" type="button">
+    📲 Instalar App Portal MAREM
+  </button>
+
+  <div class="iframe-container">
+    <iframe 
+      id="framePortalMarem"
+      allow="camera; microphone; geolocation; clipboard-read; clipboard-write"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. PEGA AQUÍ LA URL DE TU WEBAPP DE GOOGLE APPS SCRIPT (TERMINADA EN /exec)
+    // =========================================================================
+    const URL_APPS_SCRIPT = "PEGA_AQUI_TU_URL_EXEC";
+
+    // Cargar el portal en el iframe conservando parámetros si los hubiera (?page=escaner, etc.)
+    const frame = document.getElementById("framePortalMarem");
+    const paramsActuales = window.location.search;
+    frame.src = URL_APPS_SCRIPT + (paramsActuales ? paramsActuales : "");
+
+    // =========================================================================
+    // 2. REGISTRO DEL SERVICE WORKER (REQUISITO OBLIGATORIO PARA INSTALAR PWA)
+    // =========================================================================
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function() {
+        navigator.serviceWorker.register("./sw.js").catch(function(err) {
+          console.warn("Aviso SW:", err);
+        });
+      });
+    }
+
+    // =========================================================================
+    // 3. CAPTURA DEL EVENTO DE INSTALACIÓN NATIVO EN ANDROID / CHROME
+    // =========================================================================
+    let deferredPrompt = null;
+    const btnInstalar = document.getElementById("btnInstalarPWA");
+
+    window.addEventListener("beforeinstallprompt", function(e) {
+      e.preventDefault();
+      deferredPrompt = e;
+      btnInstalar.style.display = "inline-flex";
+    });
+
+    btnInstalar.addEventListener("click", async function() {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === "accepted") {
+        btnInstalar.style.display = "none";
+      }
+      deferredPrompt = null;
+    });
+
+    window.addEventListener("appinstalled", function() {
+      btnInstalar.style.display = "none";
+      deferredPrompt = null;
+    });
+  </script>
+</body>
+</html>

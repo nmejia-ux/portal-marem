@@ -1,0 +1,26 @@
+{
+  "id": "./?app=marem-portal",
+  "name": "Portal de Empleados - Inversiones MAREM",
+  "short_name": "Portal MAREM",
+  "description": "Portal del Empleado y Gestión RRHH - Inversiones MAREM",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#051329",
+  "theme_color": "#051329",
+  "icons": [
+    {
+      "src": "https://wsrv.nl/?url=i.ibb.co/rff7smrH/Logo-Inversiones-Marem.png&w=192&h=192&fit=contain&cbg=051329&output=png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://wsrv.nl/?url=i.ibb.co/rff7smrH/Logo-Inversiones-Marem.png&w=512&h=512&fit=contain&cbg=051329&output=png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
