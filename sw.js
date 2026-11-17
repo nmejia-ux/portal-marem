@@ -1,14 +1,24 @@
-const CACHE_NAME = "marem-pwa-v1";
+const CACHE_NAME = 'portal-marem-v2';
 
-self.addEventListener("install", function(event) {
+self.addEventListener('install', function(event) {
   self.skipWaiting();
 });
 
-self.addEventListener("activate", function(event) {
-  event.waitUntil(self.clients.claim());
+self.addEventListener('activate', function(event) {
+  event.waitUntil(
+    caches.keys().then(function(keys) {
+      return Promise.all(
+        keys.map(function(key) {
+          if (key !== CACHE_NAME) return caches.delete(key);
+        })
+      );
+    }).then(function() {
+      return self.clients.claim();
+    })
+  );
 });
 
-self.addEventListener("fetch", function(event) {
+self.addEventListener('fetch', function(event) {
   event.respondWith(
     fetch(event.request).catch(function() {
       return caches.match(event.request);
