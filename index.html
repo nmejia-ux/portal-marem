@@ -112,7 +112,7 @@
   </div>
 
   <script>
-    // URL activa de tu Google Apps Script (sin iframe para evitar error de Google Drive en móviles)
+    // URL oficial exacta + parámetro anti-conflicto de cuentas Android
     const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbxbT0DiVweDlPRURxLC_FFQ2E3XwQkkwaeF8tgiCikn_8N8zkbW4wVfGqnD88Msydy2kA/exec?authuser=0";
 
     const btnEntrar = document.getElementById("btnEntrarDirecto");
@@ -133,7 +133,7 @@
     const params = new URLSearchParams(window.location.search);
     const pidioInstalar = params.get("instalar") === "1";
 
-    // Si el empleado abre el ícono ya instalado en su celular, salta directo al Portal sin mostrar pantallas intermedias
+    // Si abre desde el ícono ya instalado en el celular, salta directo al Portal
     if (enStandalone && !pidioInstalar) {
       spinner.style.display = "block";
       titulo.textContent = "ABRIENDO SISTEMA...";
@@ -141,7 +141,6 @@
       btnEntrar.style.display = "none";
       window.location.replace(URL_APPS_SCRIPT);
     } else {
-      // Si abrió el link dentro de Gmail o WhatsApp en Android, darle botón directo para saltar a Chrome real
       if (esAndroid && esVisorInterno) {
         btnAbrirChrome.style.display = "block";
         btnAbrirChrome.onclick = function() {
@@ -152,7 +151,6 @@
       }
     }
 
-    // Capturar evento nativo de instalación Android / Desktop
     let deferredPrompt = null;
     window.addEventListener("beforeinstallprompt", function(e) {
       e.preventDefault();
@@ -170,9 +168,8 @@
       btnInstalar.style.display = "none";
     });
 
-    // Registrar Service Worker actualizado
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("./sw.js?v=3").then(function(reg) {
+      navigator.serviceWorker.register("./sw.js?v=5").then(function(reg) {
         reg.update();
       }).catch(function() {});
     }
