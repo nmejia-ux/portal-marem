@@ -1,4 +1,4 @@
-const CACHE_NAME = "portal-marem-v3";
+const CACHE_NAME = "portal-marem-v4";
 
 self.addEventListener("install", function(event) {
   self.skipWaiting();
