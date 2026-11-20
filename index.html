@@ -1,40 +1,74 @@
+<!-- ===========================================================================
+     ARCHIVO: index.html (Puente PWA GitHub Pages - Portal MAREM)
+     =========================================================================== -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Portal MAREM</title>
-  <meta name="theme-color" content="#030914">
+  <meta name="theme-color" content="#010308">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Portal MAREM">
   <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="https://i.ibb.co/rff7smrH/Logo-Inversiones-Marem.png">
   <link rel="apple-touch-icon" href="https://i.ibb.co/rff7smrH/Logo-Inversiones-Marem.png">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
-    body {
-      min-height: 100vh;
-      background: radial-gradient(circle at top, #0c264a 0%, #030914 60%, #010308 100%);
+    html, body, div, h1, p, a, button, iframe {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #010308;
       color: #ffffff;
+    }
+    #vistaLauncher {
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      background: radial-gradient(circle at top, #0c264a 0%, #030914 60%, #010308 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 24px;
+      padding: 22px;
       text-align: center;
+      overflow-y: auto;
     }
     .launcher-card {
       width: 100%;
-      max-width: 380px;
-      background: rgba(8, 25, 52, 0.88);
-      border: 1.5px solid rgba(56, 189, 248, 0.45);
+      max-width: 385px;
+      background: rgba(8, 25, 52, 0.92);
+      border: 1.5px solid rgba(56, 189, 248, 0.48);
       border-radius: 24px;
       padding: 28px 22px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.85), 0 0 30px rgba(56,189,248,0.2);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.88), 0 0 30px rgba(56, 189, 248, 0.22);
     }
-    .logo { max-width: 210px; margin-bottom: 18px; filter: drop-shadow(0 0 16px rgba(56,189,248,0.5)); }
-    h1 { font-size: 1.15rem; letter-spacing: 1px; color: #e0f2fe; margin-bottom: 10px; }
-    p { font-size: 0.88rem; color: #bae6fd; line-height: 1.45; margin-bottom: 20px; }
+    .logo {
+      max-width: 210px;
+      height: auto;
+      margin-bottom: 16px;
+      filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.5));
+    }
+    h1 {
+      font-size: 1.15rem;
+      letter-spacing: 1.2px;
+      color: #e0f2fe;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 0.88rem;
+      color: #bae6fd;
+      line-height: 1.45;
+      margin-bottom: 18px;
+    }
     .btn-primary-marem {
       display: block;
       width: 100%;
@@ -44,7 +78,7 @@
       background: linear-gradient(180deg, #38bdf8 0%, #0284c7 60%, #0369a1 100%);
       color: #ffffff;
       font-weight: 800;
-      font-size: 0.95rem;
+      font-size: 0.94rem;
       cursor: pointer;
       text-decoration: none;
       box-shadow: 0 8px 20px rgba(2, 132, 199, 0.5);
@@ -53,31 +87,68 @@
     .btn-secondary-marem {
       display: none;
       width: 100%;
-      padding: 12px 16px;
+      padding: 13px 16px;
       border-radius: 999px;
-      border: 1.5px dashed rgba(56, 189, 248, 0.65);
-      background: rgba(6, 22, 46, 0.8);
-      color: #bae6fd;
+      border: 1.5px dashed rgba(56, 189, 248, 0.75);
+      background: rgba(6, 22, 46, 0.88);
+      color: #e0f2fe;
       font-weight: 700;
-      font-size: 0.86rem;
+      font-size: 0.88rem;
       cursor: pointer;
-      margin-top: 6px;
+      margin-bottom: 10px;
     }
-    .ios-box {
+    .info-box {
       display: none;
       text-align: left;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(56,189,248,0.3);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(56, 189, 248, 0.32);
       border-radius: 14px;
       padding: 12px 14px;
       font-size: 0.82rem;
       color: #e0f2fe;
-      margin-top: 12px;
-      line-height: 1.45;
+      margin-top: 10px;
+      line-height: 1.48;
+    }
+    /* Contenedor a pantalla completa sin salir de GitHub Pages */
+    #contenedorPortalFull {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      background-color: #010308;
+      z-index: 100;
+      display: none;
+    }
+    #iframePortalMarem {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      background-color: #010308;
+    }
+    #pantallaCargaIframe {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      background: radial-gradient(circle at top, #0c264a 0%, #030914 60%, #010308 100%);
+      z-index: 200;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      transition: opacity 0.3s ease;
     }
     .spinner {
-      width: 36px; height: 36px;
-      border: 3px solid rgba(56,189,248,0.25);
+      width: 38px;
+      height: 38px;
+      border: 3.5px solid rgba(56, 189, 248, 0.25);
       border-top-color: #38bdf8;
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
@@ -88,88 +159,159 @@
 </head>
 <body>
 
-  <div class="launcher-card" id="cardLauncher">
+  <!-- Pantalla de carga suave mientras conecta el contenedor embebido -->
+  <div id="pantallaCargaIframe">
     <img src="https://i.ibb.co/rff7smrH/Logo-Inversiones-Marem.png" alt="Inversiones MAREM" class="logo">
-    <div id="spinnerCarga" class="spinner" style="display:none;"></div>
-    <h1 id="tituloEstado">PORTAL MAREM</h1>
-    <p id="textoEstado">Accede al sistema o instala el ícono directo en la pantalla de tu celular.</p>
+    <div class="spinner"></div>
+    <div style="font-weight:800; font-size:0.9rem; letter-spacing:1.4px; color:#bae6fd;">CONECTANDO PORTAL MAREM...</div>
+  </div>
 
-    <a id="btnEntrarDirecto" href="#" class="btn-primary-marem">INGRESAR AL PORTAL</a>
+  <!-- Vista Lanzador / Instalador (cuando abren el link desde correo o navegador) -->
+  <div id="vistaLauncher">
+    <div class="launcher-card">
+      <img src="https://i.ibb.co/rff7smrH/Logo-Inversiones-Marem.png" alt="Inversiones MAREM" class="logo">
+      <h1 id="tituloEstado">PORTAL MAREM</h1>
+      <p id="textoEstado">Instala la aplicación oficial en tu celular o ingresa directamente al sistema.</p>
 
-    <button id="btnInstalarPwa" type="button" class="btn-secondary-marem">
-      📲 Instalar App en mi Celular
-    </button>
+      <button id="btnAbrirEnChrome" type="button" class="btn-primary-marem" style="display:none;">
+        🌐 Abrir en Google Chrome para Instalar
+      </button>
 
-    <button id="btnAbrirEnChrome" type="button" class="btn-secondary-marem">
-      🌐 Abrir en Google Chrome para Instalar
-    </button>
+      <button id="btnInstalarPwa" type="button" class="btn-primary-marem" style="display:none;">
+        📲 Instalar App en mi Celular
+      </button>
 
-    <div id="guiaIos" class="ios-box">
-      <strong>Para instalar en iPhone / iPad:</strong><br>
-      1. Toca el botón <strong>Compartir (⬆️)</strong> en la barra de Safari.<br>
-      2. Elige <strong>"Agregar a Inicio"</strong> y pulsa <strong>Agregar</strong>.
+      <button id="btnEntrarDirecto" type="button" class="btn-primary-marem">
+        INGRESAR AL PORTAL
+      </button>
+
+      <div id="guiaManualAndroid" class="info-box">
+        <strong>Para instalar el ícono en tu Android:</strong><br>
+        1. Toca el menú de <strong>3 puntitos (⋮)</strong> arriba a la derecha en Chrome.<br>
+        2. Elige <strong>"Instalar aplicación"</strong> o <strong>"Agregar a la pantalla principal"</strong>.
+      </div>
+
+      <div id="guiaIos" class="info-box">
+        <strong>Para instalar en iPhone / iPad:</strong><br>
+        1. Toca el botón <strong>Compartir (⬆️)</strong> en la barra de Safari.<br>
+        2. Elige <strong>"Agregar a Inicio"</strong> y pulsa <strong>Agregar</strong>.
+      </div>
     </div>
   </div>
 
+  <!-- Contenedor PWA Embebido (evita choque de cuentas Google Drive en Android) -->
+  <div id="contenedorPortalFull">
+    <iframe
+      id="iframePortalMarem"
+      title="Portal de Empleados MAREM"
+      allow="camera; microphone; geolocation; clipboard-read; clipboard-write; fullscreen; autoplay"
+      allowfullscreen>
+    </iframe>
+  </div>
+
   <script>
-    // URL oficial exacta + parámetro anti-conflicto de cuentas Android
-    const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbxbT0DiVweDlPRURxLC_FFQ2E3XwQkkwaeF8tgiCikn_8N8zkbW4wVfGqnD88Msydy2kA/exec?authuser=0";
+    // URL limpia SIN ?authuser=0 para evitar bloqueo multi-cuenta de Google Drive en Android
+    var URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbxbT0DiVweDlPRURxLC_FFQ2E3XwQkkwaeF8tgiCikn_8N8zkbW4wVfGqnD88Msydy2kA/exec";
 
-    const btnEntrar = document.getElementById("btnEntrarDirecto");
-    const btnInstalar = document.getElementById("btnInstalarPwa");
-    const btnAbrirChrome = document.getElementById("btnAbrirEnChrome");
-    const guiaIos = document.getElementById("guiaIos");
-    const spinner = document.getElementById("spinnerCarga");
-    const titulo = document.getElementById("tituloEstado");
-    const texto = document.getElementById("textoEstado");
+    var vistaLauncher = document.getElementById("vistaLauncher");
+    var contenedorPortal = document.getElementById("contenedorPortalFull");
+    var iframePortal = document.getElementById("iframePortalMarem");
+    var pantallaCarga = document.getElementById("pantallaCargaIframe");
 
-    btnEntrar.href = URL_APPS_SCRIPT;
+    var btnEntrar = document.getElementById("btnEntrarDirecto");
+    var btnInstalar = document.getElementById("btnInstalarPwa");
+    var btnAbrirChrome = document.getElementById("btnAbrirEnChrome");
+    var guiaAndroid = document.getElementById("guiaManualAndroid");
+    var guiaIos = document.getElementById("guiaIos");
+    var textoEstado = document.getElementById("textoEstado");
 
-    const ua = navigator.userAgent || "";
-    const esIos = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-    const esAndroid = /Android/i.test(ua);
-    const esVisorInterno = /FBAN|FBAV|Instagram|WhatsApp|wv|Gmail/i.test(ua);
-    const enStandalone = window.navigator.standalone === true || window.matchMedia("(display-mode: standalone)").matches;
-    const params = new URLSearchParams(window.location.search);
-    const pidioInstalar = params.get("instalar") === "1";
+    var ua = navigator.userAgent || "";
+    var esIos = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    var esAndroid = /Android/i.test(ua);
+    // Detecta visores internos de Gmail, Outlook, WhatsApp, Facebook e Instagram
+    var esVisorInterno = /FBAN|FBAV|Instagram|WhatsApp|wv|Gmail|Outlook/i.test(ua);
+    var enStandalone = (window.navigator.standalone === true) ||
+                       (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches);
 
-    // Si abre desde el ícono ya instalado en el celular, salta directo al Portal
+    var params = new URLSearchParams(window.location.search);
+    var pidioInstalar = (params.get("instalar") === "1");
+
+    function ocultarCargaIframe() {
+      if (!pantallaCarga) return;
+      pantallaCarga.style.opacity = "0";
+      setTimeout(function() {
+        pantallaCarga.style.display = "none";
+      }, 300);
+    }
+
+    function abrirPortalEmbebido() {
+      vistaLauncher.style.display = "none";
+      pantallaCarga.style.display = "flex";
+      pantallaCarga.style.opacity = "1";
+      contenedorPortal.style.display = "block";
+
+      iframePortal.onload = function() {
+        ocultarCargaIframe();
+      };
+      iframePortal.src = URL_APPS_SCRIPT;
+
+      // Respaldo de seguridad por si onload tarda en reportar
+      setTimeout(ocultarCargaIframe, 4500);
+    }
+
+    btnEntrar.addEventListener("click", function() {
+      abrirPortalEmbebido();
+    });
+
+    // Si el empleado abre desde el ícono ya instalado en su celular, carga directo en pantalla completa
     if (enStandalone && !pidioInstalar) {
-      spinner.style.display = "block";
-      titulo.textContent = "ABRIENDO SISTEMA...";
-      texto.textContent = "Conectando con Portal MAREM...";
-      btnEntrar.style.display = "none";
-      window.location.replace(URL_APPS_SCRIPT);
+      abrirPortalEmbebido();
     } else {
       if (esAndroid && esVisorInterno) {
+        textoEstado.textContent = "Abriste el enlace desde tu correo/red social. Para instalar la App en tu celular, ábrelo en Chrome:";
         btnAbrirChrome.style.display = "block";
+        btnEntrar.className = "btn-secondary-marem";
+        btnEntrar.style.display = "block";
+        btnEntrar.textContent = "Ingresar aquí sin instalar";
         btnAbrirChrome.onclick = function() {
           window.location.href = "intent://nmejia-ux.github.io/portal-marem/?instalar=1#Intent;scheme=https;package=com.android.chrome;end";
         };
       } else if (esIos && !enStandalone) {
         guiaIos.style.display = "block";
+      } else if (esAndroid && !enStandalone) {
+        guiaAndroid.style.display = "block";
       }
     }
 
-    let deferredPrompt = null;
+    var deferredPrompt = null;
     window.addEventListener("beforeinstallprompt", function(e) {
       e.preventDefault();
       deferredPrompt = e;
       if (!enStandalone) {
         btnInstalar.style.display = "block";
+        guiaAndroid.style.display = "none";
+        btnEntrar.className = "btn-secondary-marem";
+        btnEntrar.style.display = "block";
       }
     });
 
-    btnInstalar.addEventListener("click", async function() {
-      if (!deferredPrompt) return;
+    btnInstalar.addEventListener("click", function() {
+      if (!deferredPrompt) {
+        guiaAndroid.style.display = "block";
+        return;
+      }
       deferredPrompt.prompt();
-      await deferredPrompt.userChoice;
-      deferredPrompt = null;
-      btnInstalar.style.display = "none";
+      deferredPrompt.userChoice.then(function(choice) {
+        deferredPrompt = null;
+        btnInstalar.style.display = "none";
+        if (choice && choice.outcome === "accepted") {
+          textoEstado.textContent = "¡Instalando Portal MAREM! Ya puedes abrirlo desde el ícono en tu pantalla de inicio.";
+        }
+      });
     });
 
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("./sw.js?v=5").then(function(reg) {
+      navigator.serviceWorker.register("./sw.js?v=6").then(function(reg) {
         reg.update();
       }).catch(function() {});
     }
