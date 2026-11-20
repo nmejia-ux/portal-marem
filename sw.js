@@ -1,15 +1,17 @@
-const CACHE_NAME = 'portal-marem-v2';
+const CACHE_NAME = "portal-marem-v3";
 
-self.addEventListener('install', function(event) {
+self.addEventListener("install", function(event) {
   self.skipWaiting();
 });
 
-self.addEventListener('activate', function(event) {
+self.addEventListener("activate", function(event) {
   event.waitUntil(
     caches.keys().then(function(keys) {
       return Promise.all(
         keys.map(function(key) {
-          if (key !== CACHE_NAME) return caches.delete(key);
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
+          }
         })
       );
     }).then(function() {
@@ -18,10 +20,6 @@ self.addEventListener('activate', function(event) {
   );
 });
 
-self.addEventListener('fetch', function(event) {
-  event.respondWith(
-    fetch(event.request).catch(function() {
-      return caches.match(event.request);
-    })
-  );
+self.addEventListener("fetch", function(event) {
+  event.respondWith(fetch(event.request));
 });
